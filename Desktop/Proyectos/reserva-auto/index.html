@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas del Auto</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Reservar el Kwid</h1>
+        <br>
+        <label for="usuario">Selecciona tu usuario:</label>
+        <select id="usuario">
+            <option value="Sol">Sol</option>
+            <option value="Pau">Pau</option>
+            <option value="Agus">Agus</option>
+            <option value="Papa">Papa</option>
+        </select>
+        <br><br>
+        <label for="fecha">Selecciona una fecha:</label>
+        <input type="date" id="fecha">
+        <br><br>
+        <label for="hora">Selecciona un horario:</label>
+        <select id="hora">
+            <option value="Mañana (7-12)">Mañana (7-12)</option>
+            <option value="Mediodía (12-16)">Mediodía (12-16)</option>
+            <option value="Tarde (16-21)">Tarde (16-21)</option>
+            <option value="Noche (21-7)">Noche (21-7)</option>
+        </select>
+        <br><br>
+        <label for="observaciones">Observaciones:</label>
+        <textarea id="observaciones" placeholder="Detalles adicionales..."></textarea>
+        <br><br>
+        <button id="reservarBtn">Reservar</button>
+        
+        <h2>Reservas</h2>
+        <div class="reservas" id="listaReservas"></div>
+
+        <h2>Días reservados</h2>
+        <div id="calendario"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
