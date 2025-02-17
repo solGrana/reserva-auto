@@ -8,7 +8,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     const calendarioDiv = document.getElementById("calendario");
     const reservarBtn = document.getElementById("reservarBtn");
 
-    const apiUrl = 'http://localhost:3000/reservas';
+    /* const apiUrl = 'http://localhost:3000/reservas'; */
+    const apiUrl = 'https://reserva-auto.onrender.com/reservas'; 
+
 
     let reservas = [];
 
