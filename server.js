@@ -28,7 +28,7 @@ app.get('/reservas', async (req, res) => {
         return res.status(500).json({ error: error.message });
     }
     res.json(data);
-});
+}); 
 
 // Agregar una nueva reserva
 app.post('/reservas', async (req, res) => {
