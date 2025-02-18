@@ -59,6 +59,6 @@ app.delete('/reservas/:id', async (req, res) => {
 });
 
 // Iniciar servidor
-app.listen(port, () => {
-    console.log(`Servidor ejecutándose en http://localhost:${port}`);
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Servidor ejecutándose en el puerto ${port}`);
 });
