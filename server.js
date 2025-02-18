@@ -35,6 +35,23 @@ app.post('/reservas', async (req, res) => {
     const { usuario, fecha, hora, observaciones } = req.body;
     console.log("Cuerpo de la solicitud POST:", req.body);
 
+    // Verificar si ya existe una reserva en esa fecha y hora
+    const { data: reservasExistentes, error: errorBusqueda } = await supabase
+        .from('reservas')
+        .select('id')
+        .eq('fecha', fecha)
+        .eq('hora', hora);
+
+    if (errorBusqueda) {
+        console.error('Error al buscar reserva:', errorBusqueda.message);
+        return res.status(500).json({ error: 'Error al buscar reserva' });
+    }
+
+    if (reservasExistentes.length > 0) {
+        return res.status(400).json({ error: 'Ya existe una reserva para esa fecha y hora' });
+    }
+
+    // Si no existe, insertar la nueva reserva
     const { data, error } = await supabase.from('reservas').insert([
         { usuario, fecha, hora, observaciones }
     ]);
@@ -47,6 +64,7 @@ app.post('/reservas', async (req, res) => {
     console.log("Reserva insertada:", data);
     res.status(201).json(data);
 });
+
 
 
 // Eliminar una reserva

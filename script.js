@@ -34,20 +34,23 @@ document.addEventListener("DOMContentLoaded", async function () {
         const fecha = fechaInput.value;
         const hora = horaSelect.value;
         const observaciones = observacionesInput.value;
-
+    
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ usuario, fecha, hora, observaciones })
         });
-
+    
+        const result = await response.json();
+    
         if (response.ok) {
             alert('Reserva creada');
             cargarReservas();
         } else {
-            alert('Error al crear reserva');
+            alert(result.error || 'Error al crear reserva');
         }
     }
+    
 
     async function eliminarReserva(id) {
         const response = await fetch(`${apiUrl}/${id}`, {
