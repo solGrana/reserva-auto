@@ -5,15 +5,16 @@ const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
 const port = process.env.PORT || 3000;
-app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));  // Sirve todos los archivos del root (incluyendo css y fonts)
 
 // Configuración de CORS
 const corsOptions = {
-    origin: '*',  // Permite todos los orígenes
-    methods: ['GET', 'POST', 'DELETE'], // Métodos permitidos
-  };
+    origin: '*', // Permite solicitudes desde cualquier origen
+    credentials: true, // Permite enviar cookies y credenciales
+    optionsSuccessStatus: 200, // Evita problemas con algunos navegadores antiguos
+    methods: ['GET', 'POST', 'DELETE'] // Métodos permitidos
+};
   
 app.use(cors(corsOptions));  // Usa CORS con las opciones configuradas
   
