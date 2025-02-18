@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const reservarBtn = document.getElementById("reservarBtn");
 
     /* const apiUrl = 'http://localhost:3000/reservas'; */
-    const apiUrl = 'https://reserva-auto.onrender.com/reservas'; 
+    const apiUrl = 'https://reservas-auto.onrender.com/reservas'; 
 
 
     let reservas = [];
