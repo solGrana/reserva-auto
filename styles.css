@@ -130,3 +130,58 @@ button:hover {
     background-color: #a71d2a;
     transform: scale(1.05);
 }
+
+.calendario-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.calendario-tabla th, .calendario-tabla td {
+    width: 14.28%; /* 100% dividido en 7 días */
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.calendario-tabla th {
+    background-color: #f4f4f4;
+
+    font-weight: bold;
+}
+
+.calendario-tabla td {
+    height: 50px;
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+}
+
+.reserva-dia {
+    background-color: rgba(255, 0, 0, 0.3);
+    font-weight: bold;
+    border-radius: 0px;
+}
+
+.reserva-dia:hover{
+    background-color: rgba(195, 4, 4, 0.513);
+}
+
+.calendario-tabla td[title] {
+    position: relative;
+}
+
+.calendario-tabla td[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 999;
+}
