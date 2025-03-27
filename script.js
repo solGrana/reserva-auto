@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
     }
 
-    let fechaActual = new Date();
+  /*   let fechaActual = new Date();
 
     function actualizarCalendario() {
         calendarioDiv.innerHTML = "";
@@ -181,7 +181,83 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
 
         calendarioDiv.appendChild(tabla);
-    }
+    } */
+        let fechaActual = new Date();
+        function actualizarCalendario() {
+            calendarioDiv.innerHTML = "";
+        
+            const año = fechaActual.getFullYear();
+            const mes = fechaActual.getMonth(); // Mes actual (0 = enero, 1 = febrero, etc.)
+        
+            // Título del mes actual
+            const titulo = document.createElement("h3");
+            titulo.textContent = fechaActual.toLocaleDateString("es-ES", { month: "long", year: "numeric" });
+            calendarioDiv.appendChild(titulo);
+        
+            const tabla = document.createElement("table");
+            tabla.classList.add("calendario-tabla");
+        
+            // Header con los días de la semana 
+            const diasSemana = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
+            const headerRow = document.createElement("tr");
+            diasSemana.forEach(dia => {
+                const th = document.createElement("th");
+                th.textContent = dia;
+                headerRow.appendChild(th);
+            });
+            tabla.appendChild(headerRow);
+        
+            // Obtener el primer día del mes (ajustado para que Lunes sea 0)
+            let primerDia = new Date(año, mes, 1).getDay(); // 0 = Domingo, 1 = Lunes...
+            primerDia = (primerDia === 0) ? 6 : primerDia - 1; // Ajuste para que Lunes sea 0
+        
+            const totalDias = new Date(año, mes + 1, 0).getDate();
+            let fila = document.createElement("tr");
+        
+            // Celdas vacías antes del primer día
+            for (let i = 0; i < primerDia; i++) {
+                fila.appendChild(document.createElement("td"));
+            }
+        
+            let diaActual = 1;
+            while (diaActual <= totalDias) {
+                const celda = document.createElement("td");
+                celda.textContent = diaActual;
+        
+                // Verificar si hay reservas para este día
+                const fechaStr = `${año}-${(mes + 1).toString().padStart(2, "0")}-${diaActual.toString().padStart(2, "0")}`;
+                const reservasDia = reservas.filter(res => res.fecha === fechaStr);
+        
+                if (reservasDia.length > 0) {
+                    const colores = reservasDia.map(res => coloresUsuarios[res.usuario] || "rgba(0, 0, 0, 0.1)");
+                    
+                    if (colores.length === 1) {
+                        celda.style.backgroundColor = colores[0]; // Un solo color
+                    } else {
+                        celda.style.background = `linear-gradient(to right, ${colores.join(", ")})`; // Múltiples colores
+                    }
+                    
+                    celda.title = reservasDia.map(res => `${res.usuario}: ${res.hora}`).join("\n");
+                }
+        
+                fila.appendChild(celda);
+        
+                // Si es domingo (posición 6), cerrar la fila y empezar otra
+                if ((primerDia + diaActual) % 7 === 0) {
+                    tabla.appendChild(fila);
+                    fila = document.createElement("tr");
+                }
+        
+                diaActual++;
+            }
+        
+            if (fila.children.length > 0) {
+                tabla.appendChild(fila);
+            }
+        
+            calendarioDiv.appendChild(tabla);
+        }
+        
 
     mesAnteriorBtn.addEventListener("click", () => {
         fechaActual.setMonth(fechaActual.getMonth() - 1);
